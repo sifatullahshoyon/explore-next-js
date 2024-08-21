@@ -1,6 +1,14 @@
 import Link from "next/link";
 import React from "react";
 
+export const metadata = {
+  title: {
+    absolute: "Blogs",
+  },
+  description: "About Page",
+  keywords: ["blog", "page"],
+};
+
 const blogs = async () => {
   const response = await fetch("https://jsonplaceholder.typicode.com/comments");
   const allData = await response.json();
@@ -20,9 +28,9 @@ const blogs = async () => {
             </div>
             <div className="flex gap-4">
               <Link href={`/blogs/${data.id}`}>
-              <button className="rounded-lg bg-slate-800 px-6 py-2 text-[12px] font-semibold text-white duration-300 hover:bg-slate-950 sm:text-sm md:text-base ">
-                View Details
-              </button>
+                <button className="rounded-lg bg-slate-800 px-6 py-2 text-[12px] font-semibold text-white duration-300 hover:bg-slate-950 sm:text-sm md:text-base ">
+                  View Details
+                </button>
               </Link>
             </div>
           </div>

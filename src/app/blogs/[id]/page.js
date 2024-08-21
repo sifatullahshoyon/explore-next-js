@@ -1,5 +1,17 @@
 import React from "react";
 
+export async function generateMetadata({ params }) {
+  const res = await fetch(
+    `https://jsonplaceholder.typicode.com/comments/${params.id}`
+  );
+  const singleData = await res.json();
+  return {
+    title: singleData?.name,
+    description: singleData?.body,
+    keywords: singleData?.body.split(" "),
+  };
+}
+
 const page = async ({ params }) => {
   const response = await fetch(
     `https://jsonplaceholder.typicode.com/comments/${params.id}`
