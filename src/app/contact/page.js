@@ -1,6 +1,8 @@
 import React from "react";
 import { Anek_Devanagari } from "next/font/google";
 import Image from "next/image";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]/route";
 
 const anek = Anek_Devanagari({weight: ['400' , '500' , '700'], subsets: ['latin']})
 
@@ -10,9 +12,11 @@ export const metadata = {
 };
 
 const getTime = async () => {
+  const session = await getServerSession(authOptions);
+  console.log("🚀 ~ getTime ~ session:", {session})
+  
   const res = await fetch('http://localhost:3000/time' , { next: {revalidate : 5} });
   const data = await res.json();
-  console.log('data' , data)
   return data.currentTime;
 };
 

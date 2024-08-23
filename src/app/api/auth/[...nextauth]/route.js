@@ -1,7 +1,8 @@
 import nextAuth from "next-auth";
 import credentialsProvider from "next-auth/providers/credentials"
 
-const handler = nextAuth({
+export const authOptions = {
+    secret : process.env.NEXT_PUBLIC_AUTH_SECRET,
     session: {
         strategy: 'jwt'
     },
@@ -22,7 +23,9 @@ const handler = nextAuth({
 
         
     ],
-});
+};
+
+const handler = nextAuth();
 
 
 export{handler as GET, handler as POST}

@@ -1,9 +1,11 @@
 'use client'
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React from "react";
 
 const Navbar = () => {
+  const session = useSession();
     const pathName = usePathname();
     const router = useRouter();
     const links = [
@@ -64,7 +66,7 @@ const Navbar = () => {
       <ul className="flex justify-around gap-10">
         {links?.map(link => (<Link key={link.path} href={link.path} className={`${pathName === link.path && "text-white font-bold"}`}>{link.title}</Link>))}
       </ul>
-      <button onClick={handler} className="px-3 py-2 rounded bg-white text-amber-500">Login</button>
+      {session.status === 'authenticated' ? <button onClick={handler} className="px-3 py-2 rounded bg-white text-amber-500">Login</button> : <button onClick={handler} className="px-3 py-2 rounded bg-white text-amber-500">Logout</button>}
     </nav>
   );
 };
